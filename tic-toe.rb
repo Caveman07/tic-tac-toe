@@ -4,15 +4,14 @@ class Tic_Tac_Toe
 	@@playerswitch = 0
 	@@game_over = false 
 	
-	def self.board() #prints board  #prints on each line if line>3 (how to do it??)
-		@@board_array.each_slice(3) do |symbol| 
-			
-				if symbol == 0 
-				 puts "_".join("|") 
-				else puts symbol.join("|") 
-				end
-			end
-	end
+	def self.board()
+            puts " #{@@board_array[0] == 0 ? " " : @@board_array[0] } | #{@@board_array[1] == 0 ? " " : @@board_array[1] } | #{@@board_array[2] == 0 ? " " : @@board_array[2] } "
+            puts "-----------"
+            puts " #{@@board_array[3] == 0 ? " " : @@board_array[3] } | #{@@board_array[4] == 0 ? " " : @@board_array[4] } | #{@@board_array[5] == 0 ? " " : @@board_array[5] } "
+            puts "-----------"
+            puts " #{@@board_array[6] == 0 ? " " : @@board_array[6] } | #{@@board_array[7] == 0 ? " " : @@board_array[7] } | #{@@board_array[8] == 0 ? " " : @@board_array[8] } "
+    end
+	
 
 	def self.move() 
 		 #if player 1 moves player = 0, else 1
@@ -31,7 +30,7 @@ class Tic_Tac_Toe
 						
 					else 
 					   puts "Your input is not a number or the space is taken"
-					   move() #start all over again	
+					   self.move() #start all over again	
 					end
 
 		    else 
@@ -46,7 +45,7 @@ class Tic_Tac_Toe
 						
 					else 
 					   puts "Your input is incorrect number or the space is taken"
-					   move() #start all over again		
+					   self.move() #start all over again		
 					end
 		    end
 		end
@@ -56,7 +55,7 @@ class Tic_Tac_Toe
 	
 	#check if a player can place its sign on that position 
 	def self.movable(input)
-		if @@board_array[input.to_i - 1] = 0
+		if @@board_array[input.to_i - 1] == 0
 			return true
 		else 
 			false 
@@ -72,39 +71,40 @@ class Tic_Tac_Toe
 
 
 		  elsif @@board_array[0] == sign && @@board_array[1] == sign && @@board_array[2] == sign   #case 1
-        		puts "game won"
+        		puts "game won by Player #{@@playerswitch == 0 ? "1" : "2" }"
         		@@game_over = true
 
            elsif @@board_array[3] == sign && @@board_array[4] == sign && @@board_array[5] == sign   #case 2
-        		puts "game won"
+        		puts "game won by Player #{@@playerswitch == 0 ?  "1" :  "2" }"
         		@@game_over = true
 
            elsif @@board_array[6] == sign && @@board_array[7] == sign && @@board_array[8] == sign  #case 3
-        		puts "game won"
+        		puts "game won by Player #{@@playerswitch == 0 ? "1" : "2" }"
         		@@game_over = true
 
            elsif @@board_array[0] == sign && @@board_array[3] == sign && @@board_array[6] == sign  #case 4
-        		puts "game won"
+        		puts "game won by Player #{@@playerswitch == 0 ? "1" :  "2" }"
         		@@game_over = true
 
            elsif @@board_array[1] == sign && @@board_array[4] == sign && @@board_array[7] == sign  #case 5
-        		puts "game won" 
+        		puts "game won by Player #{@@playerswitch == 0 ? "1" : "2" }" 
         		@@game_over = true
 
            elsif @@board_array[2] == sign && @@board_array[5] == sign && @@board_array[8] == sign   #case 6
-        		puts "game won"
+        		puts "game won by Player #{@@playerswitch == 0 ? "1" : "2" }"
         		@@game_over = true
 
            elsif @@board_array[0] == sign && @@board_array[4] == sign && @@board_array[8] == sign  #case 7
-        		puts "game won"
+        		puts "game won by Player #{@@playerswitch == 0 ? "1" : "2" }"
         		@@game_over = true
 
            elsif @@board_array[2] == sign && @@board_array[4] == sign && @@board_array[6] == sign   #case 8
-        		puts "game won"
+        		puts "game won by Player #{@@playerswitch == 0 ?  "1" : "2" }"
         		@@game_over = true
 
-           else 
-           	  puts "you guys have draw" 
+           else
+                 	 
+           	  #puts "you guys have draw" 
               @@game_over = true
                
            end
@@ -116,6 +116,16 @@ class Tic_Tac_Toe
 		self.move()
 
 		#starts the game 
+	end
+	def Tic_Tac_Toe.testmovable
+		@@board_array[5] = "x"
+		if self.movable(6) 
+		       puts "some shit" 
+		   else
+		      puts "ok" 
+		  end
+
+		#tests the the movable function
 	end
 end
 
