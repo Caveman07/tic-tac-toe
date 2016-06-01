@@ -2,6 +2,7 @@ class Tic_Tac_Toe
 
 	@@board_array = Array.new(9,0)
 	@@playerswitch = 0
+	@@game_over = false 
 	
 	def self.board() #prints board  #prints on each line if line>3 (how to do it??)
 		@@board_array.each_slice(3) do |symbol| 
@@ -15,7 +16,7 @@ class Tic_Tac_Toe
 
 	def self.move() 
 		 #if player 1 moves player = 0, else 1
-		 while winordraw == false do
+		 while @@game_over == false do
 
 		    if  @@playerswitch == 0
 
@@ -24,6 +25,8 @@ class Tic_Tac_Toe
 		            if number =~ /^[1-9]/ && movable(number) #check if the number within range 1-9 and the space is empty
 		             	@@board_array[number.to_i - 1] = "x" #puts x for Player 1
 		             	board() #prints the board
+		             	self.winordraw 
+		             	break if @@game_over == true
 							@@playerswitch += 1
 						
 					else 
@@ -37,6 +40,8 @@ class Tic_Tac_Toe
 		            if number =~ /^[1-9]/ && movable(number) #check if the number within range 1-9 and the space is empty
 		             	@@board_array[number.to_i - 1 ] = "o" #puts o for Player 2
 		             	board() #prints the board
+		             	self.winordraw
+		             	break if @@game_over == true 
 							@@playerswitch -= 1
 						
 					else 
@@ -63,36 +68,45 @@ class Tic_Tac_Toe
 		@@board_array.each do |sign| 
 
 		  if sign == 0
-                  return false #checks that not all spaces are taken yet and returns false
+                  @@game_over = false #checks that not all spaces are taken yet and returns false
 
 
 		  elsif @@board_array[0] == sign && @@board_array[1] == sign && @@board_array[2] == sign   #case 1
-        		return true 
         		puts "game won"
+        		@@game_over = true
+
            elsif @@board_array[3] == sign && @@board_array[4] == sign && @@board_array[5] == sign   #case 2
         		puts "game won"
-        		return true
+        		@@game_over = true
+
            elsif @@board_array[6] == sign && @@board_array[7] == sign && @@board_array[8] == sign  #case 3
         		puts "game won"
-        		return true
+        		@@game_over = true
+
            elsif @@board_array[0] == sign && @@board_array[3] == sign && @@board_array[6] == sign  #case 4
         		puts "game won"
-        		return true
+        		@@game_over = true
+
            elsif @@board_array[1] == sign && @@board_array[4] == sign && @@board_array[7] == sign  #case 5
         		puts "game won" 
-        		return true
+        		@@game_over = true
+
            elsif @@board_array[2] == sign && @@board_array[5] == sign && @@board_array[8] == sign   #case 6
         		puts "game won"
-        		return true
+        		@@game_over = true
+
            elsif @@board_array[0] == sign && @@board_array[4] == sign && @@board_array[8] == sign  #case 7
         		puts "game won"
-        		return true	
+        		@@game_over = true
+
            elsif @@board_array[2] == sign && @@board_array[4] == sign && @@board_array[6] == sign   #case 8
         		puts "game won"
-        		return true		
+        		@@game_over = true
+
            else 
-              return true
-              puts "you guys have draw" 
+           	  puts "you guys have draw" 
+              @@game_over = true
+               
            end
         end
     end             
