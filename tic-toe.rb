@@ -4,18 +4,18 @@ class Tic_Tac_Toe
 	@@playerswitch = 0
 	
 	def self.board() #prints board  #prints on each line if line>3 (how to do it??)
-		@@board_array.each do 
-			|sign|
-				if sign == 0 
-				 puts "_" 
-				else puts sign
-				end
-			end
+		@@board_array.each_slice(3) { |x| puts x.join("|")} 
+			# |sign|
+			# 	if sign == 0 
+			# 	 puts "_" 
+			# 	else puts sign
+			# 	end
+			# end
 	end
 
-	def self.move() #accepts a move and prints it on the board; how to decide which player's move?
+	def self.move() 
 		 #if player 1 moves player = 0, else 1
-		 while winordraw == false
+		 loop winordraw == false do
 
 		    if  @@playerswitch == 0
 
@@ -61,41 +61,38 @@ class Tic_Tac_Toe
 
 	def self.winordraw
 		@@board_array.each do |sign| 
-		  if
-        	case sign 
-        	when @@board_array[0], @@board_array[1], @@board_array[2]   #case 1
+		  if @@board_array[0] == sign && @@board_array[1] == sign && @@board_array[2] == sign   #case 1
         		return true 
         		puts "game won"
-        	when @@board_array[3], @@board_array[4], @@board_array[5]   #case 2
+           elsif @@board_array[3] == sign && @@board_array[4] == sign && @@board_array[5] == sign   #case 2
         		puts "game won"
         		return true
-        	when @@board_array[6], @@board_array[7], @@board_array[8]   #case 3
+           elsif @@board_array[6] == sign && @@board_array[7] == sign && @@board_array[8] == sign  #case 3
         		puts "game won"
         		return true
-        	when @@board_array[0], @@board_array[3], @@board_array[6]   #case 4
+           elsif @@board_array[0] == sign && @@board_array[3] == sign && @@board_array[6] == sign  #case 4
         		puts "game won"
         		return true
-        	when @@board_array[1], @@board_array[4], @@board_array[7]   #case 5
+           elsif @@board_array[1] == sign && @@board_array[4] == sign && @@board_array[7] == sign  #case 5
+        		puts "game won" 
+        		return true
+           elsif @@board_array[2] == sign && @@board_array[5] == sign && @@board_array[8] == sign   #case 6
         		puts "game won"
         		return true
-        	when @@board_array[2], @@board_array[5], @@board_array[8]   #case 6
-        		puts "game won"
-        		return true
-        	when @@board_array[0], @@board_array[4], @@board_array[8]   #case 7
+           elsif @@board_array[0] == sign && @@board_array[4] == sign && @@board_array[8] == sign  #case 7
         		puts "game won"
         		return true	
-        	when @@board_array[2], @@board_array[4], @@board_array[6]   #case 8
+           elsif @@board_array[2] == sign && @@board_array[4] == sign && @@board_array[6] == sign   #case 8
         		puts "game won"
         		return true		
-        	end
+        	
+		   elsif sign == 0
+                  return false #checks that not all spaces are taken yet and returns false
 
-          elsif sign == 0
-            return false #checks that not all spaces are taken yet and returns false
-
-          else 
+           else 
               return true
               puts "you guys have draw" 
-          end
+           end
         end
     end             
 
