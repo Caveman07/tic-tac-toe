@@ -4,25 +4,25 @@ class Tic_Tac_Toe
 	@@playerswitch = 0
 	
 	def self.board() #prints board  #prints on each line if line>3 (how to do it??)
-		@@board_array.each_slice(3) { |x| puts x.join("|")} 
-			# |sign|
-			# 	if sign == 0 
-			# 	 puts "_" 
-			# 	else puts sign
-			# 	end
-			# end
+		@@board_array.each_slice(3) do |symbol| 
+			
+				if symbol == 0 
+				 puts "_".join("|") 
+				else puts symbol.join("|") 
+				end
+			end
 	end
 
 	def self.move() 
 		 #if player 1 moves player = 0, else 1
-		 loop winordraw == false do
+		 while winordraw == false do
 
 		    if  @@playerswitch == 0
 
 		    	puts "Player 1 please choose any free place to put <x> from 1-9"  #(here i need ask input from a Player 1 and it has to be a number 1-9 and it has to be movebale)
 		        number = gets 
 		            if number =~ /^[1-9]/ && movable(number) #check if the number within range 1-9 and the space is empty
-		             	@@board_array[number.to_i] = "x" #puts x for Player 1
+		             	@@board_array[number.to_i - 1] = "x" #puts x for Player 1
 		             	board() #prints the board
 							@@playerswitch += 1
 						
@@ -35,7 +35,7 @@ class Tic_Tac_Toe
 		        puts "Player 2 please choose any free place to put <o> from 1-9"  #(here i need ask input from a Player 1 and it has to be a number 1-9 and it has to be movebale)
 		        number = gets 
 		            if number =~ /^[1-9]/ && movable(number) #check if the number within range 1-9 and the space is empty
-		             	@@board_array[number.to_i] = "o" #puts o for Player 2
+		             	@@board_array[number.to_i - 1 ] = "o" #puts o for Player 2
 		             	board() #prints the board
 							@@playerswitch -= 1
 						
@@ -51,7 +51,7 @@ class Tic_Tac_Toe
 	
 	#check if a player can place its sign on that position 
 	def self.movable(input)
-		if @@board_array[input.to_i] = 0
+		if @@board_array[input.to_i - 1] = 0
 			return true
 		else 
 			false 
@@ -61,7 +61,12 @@ class Tic_Tac_Toe
 
 	def self.winordraw
 		@@board_array.each do |sign| 
-		  if @@board_array[0] == sign && @@board_array[1] == sign && @@board_array[2] == sign   #case 1
+
+		  if sign == 0
+                  return false #checks that not all spaces are taken yet and returns false
+
+
+		  elsif @@board_array[0] == sign && @@board_array[1] == sign && @@board_array[2] == sign   #case 1
         		return true 
         		puts "game won"
            elsif @@board_array[3] == sign && @@board_array[4] == sign && @@board_array[5] == sign   #case 2
@@ -85,10 +90,6 @@ class Tic_Tac_Toe
            elsif @@board_array[2] == sign && @@board_array[4] == sign && @@board_array[6] == sign   #case 8
         		puts "game won"
         		return true		
-        	
-		   elsif sign == 0
-                  return false #checks that not all spaces are taken yet and returns false
-
            else 
               return true
               puts "you guys have draw" 
